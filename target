@@ -1,0 +1,19 @@
+   <!-- Страница корзины -->
+   <div id="cart-page" class="page" style="display: none;">
+    <h1 class="page-title">Корзина</h1>
+    
+    <div class="section">
+        <div id="cart-items" class="cart-items">
+            <!-- Товары в корзине будут добавляться сюда -->
+            <p id="empty-cart-message">Ваша корзина пуста</p>
+        </div>
+        
+        <div class="cart-summary">
+            <div class="cart-total">
+                <span>Итого:</span>
+                <span id="cart-total">0 ₽</span>
+            </div>
+            <button class="btn btn-block" onclick="checkout()">Оформить заказ</button>
+        </div>
+    </div>
+</div>

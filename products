@@ -1,0 +1,227 @@
+<script>
+    // Данные о товарах
+    const products = {
+        1: {
+            id: 1,
+            name: "Холодильник Samsung RB37",
+            price: 54990,
+            image: "https://via.placeholder.com/250x200",
+            description: "Современный холодильник с системой No Frost и энергопотреблением класса A+. Идеально подходит для семьи из 3-4 человек.",
+            features: [
+                "Объем: 367 л",
+                "No Frost",
+                "Энергопотребление: A+",
+                "Зона свежести",
+                "Инверторный компрессор"
+            ]
+        },
+        2: {
+            id: 2,
+            name: "Холодильник LG Side by Side",
+            price: 89990,
+            image: "https://via.placeholder.com/250x200",
+            description: "Просторный холодильник Side by Side с двойной системой No Frost и диспенсером для воды и льда.",
+            features: [
+                "Объем: 635 л",
+                "Двойная система No Frost",
+                "Диспенсер для воды и льда",
+                "Смарт-функции",
+                "Энергопотребление: A++"
+            ]
+        },
+        3: {
+            id: 3,
+            name: "Холодильник Bosch MultiDoor",
+            price: 76490,
+            image: "https://via.placeholder.com/250x200",
+            description: "Инновационный многодверный холодильник с технологией VitaFresh для длительного сохранения свежести продуктов.",
+            features: [
+                "Объем: 569 л",
+                "4 двери",
+                "Технология VitaFresh",
+                "No Frost",
+                "Энергопотребление: A++"
+            ]
+        },
+        4: {
+            id: 4,
+            name: "Стиральная машина Indesit",
+            price: 24990,
+            image: "https://texcomplect.ru/wa-data/public/shop/products/09/97/49709/images/108470/108470.970.jpg",
+            description: "Надежная и экономичная стиральная машина с фронтальной загрузкой и множеством программ стирки.",
+            features: [
+                "Загрузка: 7 кг",
+                "Отжим: 1000 об/мин",
+                "Энергопотребление: A++",
+                "16 программ стирки",
+                "Защита от протечек"
+            ]
+        },
+        5: {
+            id: 5,
+            name: "Стиральная машина LG с сушкой",
+            price: 49990,
+            image: "https://vsya-tehnika24.ru/image/cache/catalog/products/Stiralnye-mashiny/Stiralnaya-mashina-s-sushkoj-LG-F2T5HG2S-800x800-product_popup.jpg",
+            description: "Стиральная машина с функцией сушки и технологией Steam для бережного ухода за одеждой.",
+            features: [
+                "Загрузка: 9 кг",
+                "Сушка: 6 кг",
+                "Технология Steam",
+                "Прямой привод",
+                "Энергопотребление: A+++"
+            ]
+        },
+        6: {
+            id: 6,
+            name: "Вытяжка Kuppersbusch",
+            price: 32490,
+            image: "https://kuppersbusch-centre.ru/upload/iblock/7b5/hnycemh27jc19jcyy9n8q9ez2drik554/ostrovnaya_vytyazhka_kuppersbusch_di_9340_0_e.jpg",
+            description: "Мощная вытяжка для кухни с LED-подсветкой и тремя скоростями работы.",
+            features: [
+                "Производительность: 650 м³/ч",
+                "3 скорости работы",
+                "Подсветка LED",
+                "Угольный фильтр в комплекте",
+                "Сенсорное управление"
+            ]
+        },
+        7: {
+            id: 7,
+            name: "Вытяжка Bosch без воздухоотвода",
+            price: 28750,
+            image: "https://bosch-centre.ru/upload/resize_cache/iblock/0a8/afb3zw5fffa93xv0r7opsh6ygmef8yl5/238_256_1/Bosch-DWK-065G60T_photo_1.jpg",
+            description: "Стильная вытяжка с рециркуляционным режимом работы, не требующая подключения к вентиляции.",
+            features: [
+                "Рециркуляционный режим",
+                "Угольный фильтр",
+                "Сенсорное управление",
+                "3 скорости работы",
+                "Таймер"
+            ]
+        }
+    };
+
+    // Корзина
+    let cart = [];
+    
+    // Функция для отображения страницы
+    function showPage(pageId) {
+        // Скрыть все страницы
+        document.querySelectorAll('.page').forEach(page => {
+            page.style.display = 'none';
+        });
+        
+        // Показать выбранную страницу
+        document.getElementById(`${pageId}-page`).style.display = 'block';
+        
+        // Если открывается страница корзины, обновить ее содержимое
+        if (pageId === 'cart') {
+            updateCartDisplay();
+        }
+    }
+    
+    // Функция для добавления товара в корзину
+    function addToCart(productId) {
+        const product = products[productId];
+        
+        // Проверить, есть ли товар уже в корзине
+        const existingItem = cart.find(item => item.id === productId);
+        
+        if (existingItem) {
+            existingItem.quantity += 1;
+        } else {
+            cart.push({
+                id: productId,
+                name: product.name,
+                price: product.price,
+                image: product.image,
+                quantity: 1
+            });
+        }
+        
+        // Обновить счетчик корзины
+        updateCartCount();
+        
+        // Показать уведомление
+        alert(`Товар "${product.name}" добавлен в корзину!`);
+    }
+    
+    // Функция для обновления счетчика корзины
+    function updateCartCount() {
+        const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+        document.getElementById('cartCount').textContent = totalItems;
+    }
+    
+    // Функция для обновления отображения корзины
+    function updateCartDisplay() {
+        const cartItemsContainer = document.getElementById('cart-items');
+        const emptyCartMessage = document.getElementById('empty-cart-message');
+        const cartTotal = document.getElementById('cart-total');
+        
+        // Очистить контейнер
+        cartItemsContainer.innerHTML = '';
+        
+        if (cart.length === 0) {
+            // Показать сообщение о пустой корзине
+            emptyCartMessage.style.display = 'block';
+            cartTotal.textContent = '0 ₽';
+            return;
+        }
+        
+        // Скрыть сообщение о пустой корзине
+        emptyCartMessage.style.display = 'none';
+        
+        // Добавить товары в корзину
+        let total = 0;
+        
+        cart.forEach(item => {
+            const itemTotal = item.price * item.quantity;
+            total += itemTotal;
+            
+            const cartItemElement = document.createElement('div');
+            cartItemElement.className = 'cart-item';
+            cartItemElement.innerHTML = `
+                <div class="cart-item-image">
+                    <img src="${item.image}" alt="${item.name}">
+                </div>
+                <div class="cart-item-details">
+                    <h3 class="cart-item-title">${item.name}</h3>
+                    <div class="cart-item-price">${item.price.toLocaleString()} ₽ x ${item.quantity} = ${itemTotal.toLocaleString()} ₽</div>
+                </div>
+                <button class="cart-item-remove" onclick="removeFromCart(${item.id})">✕</button>
+            `;
+            
+            cartItemsContainer.appendChild(cartItemElement);
+        });
+        
+        // Обновить общую сумму
+        cartTotal.textContent = `${total.toLocaleString()} ₽`;
+    }
+    
+    // Функция для удаления товара из корзины
+    function removeFromCart(productId) {
+        cart = cart.filter(item => item.id !== productId);
+        updateCartCount();
+        updateCartDisplay();
+    }
+    
+    // Функция для оформления заказа
+    function checkout() {
+        if (cart.length === 0) {
+            alert('Ваша корзина пуста!');
+            return;
+        }
+        
+        alert('Заказ успешно оформлен! Спасибо за покупку!');
+        cart = [];
+        updateCartCount();
+        updateCartDisplay();
+        showPage('home');
+    }
+    
+    // Инициализация при загрузке страницы
+    document.addEventListener('DOMContentLoaded', function() {
+        updateCartCount();
+        showPage('home');
+    });
+</script>

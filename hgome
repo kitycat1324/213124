@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Магазин бытовой техники "Офелия"</title>
+    <style>
+        /* Основные стили */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        :root {
+            --primary-green: #27ae60;
+            --dark-green: #219653;
+            --light-green: #e9f7ef;
+            --white: #ffffff;
+            --black: #333333;
+            --gray: #f5f5f5;
+            --dark-gray: #777777;
+            --red: #e74c3c;
+        }
+        
+        body {
+            background-color: var(--gray);
+            color: var(--black);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Шапка сайта */
+        header {
+            background-color: var(--white);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: var(--black);
+        }
+        
+        .logo span {
+            color: var(--primary-green);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 25px;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: var(--black);
+            font-weight: 500;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+        }
+        
+        nav ul li a:hover {
+            color: var(--primary-green);
+        }
+        
+        .cart-icon {
+            position: relative;
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: var(--red);
+            color: var(--white);
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+        
+        /* Основной контент */
+        main {
+            padding: 40px 0;
+            min-height: calc(100vh - 200px);
+        }
+        
+        .page-title {
+            font-size: 32px;
+            margin-bottom: 30px;
+            color: var(--black);
+            text-align: center;
+        }
+        
+        /* Секции */
+        .section {
+            background-color: var(--white);
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .section-title {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: var(--black);
+            border-bottom: 2px solid var(--primary-green);
+            padding-bottom: 10px;
+        }
+        
+        /* Карточки товаров */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+        
+        .product-card {
+            background-color: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+            border-color: var(--primary-green);
+        }
+        
+        .product-image {
+            height: 200px;
+            background-color: #f5f5f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .product-image:after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--primary-green);
+        }
+        
+        .product-image img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: cover;
+        }
+        
+        .product-info {
+            padding: 20px;
+        }
+        
+        .product-title {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: var(--black);
+        }
+        
+        .product-price {
+            font-size: 20px;
+            font-weight: bold;
+            color: var(--red);
+            margin-bottom: 15px;
+        }
+        
+        .product-features {
+            list-style: none;
+            margin-bottom: 15px;
+        }
+        
+        .product-features li {
+            padding: 5px 0;
+            font-size: 14px;
+            color: var(--dark-gray);
+            position: relative;
+            padding-left: 15px;
+        }
+        
+        .product-features li:before {
+            content: "•";
+            color: var(--primary-green);
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-green);
+            color: var(--white);
+            padding: 10px 20px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            text-align: center;
+        }
+        
+        .btn:hover {
+            background-color: var(--dark-green);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(39, 174, 96, 0.3);
+        }
+        
+        .btn-block {
+            width: 100%;
+        }
+        
+        /* Акционные метки */
+        .sale-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: var(--red);
+            color: var(--white);
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+            z-index: 1;
+        }
+        
+        /* Страница товара */
+        .product-detail {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+        
+        .product-gallery {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .product-main-image {
+            height: 400px;
+            background-color: #f5f5f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            overflow: hidden;
+        }
+        
+        .product-main-image img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: cover;
+        }
+        
+        .product-thumbnails {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .thumbnail {
+            width: 80px;
+            height: 80px;
+            background-color: #f5f5f5;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            overflow: hidden;
+            border: 2px solid transparent;
+        }
+        
+        .thumbnail.active {
+            border-color: var(--primary-green);
+        }
+        
+        .thumbnail img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: cover;
+        }
+        
+        .product-detail-info {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .product-detail-title {
+            font-size: 28px;
+            margin-bottom: 15px;
+            color: var(--black);
+        }
+        
+        .product-detail-price {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--red);
+            margin-bottom: 20px;
+        }
+        
+        .product-description {
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        
+        .product-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: auto;
+        }
+        
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .quantity-btn {
+            background-color: var(--light-green);
+            border: none;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 18px;
+        }
+        
+        .quantity-input {
+            width: 50px;
+            height: 40px;
+            border: none;
+            text-align: center;
+            font-size: 16px;
+        }
+        
+        /* Корзина */
+        .cart-items {
+            margin-bottom: 30px;
+        }
+        
+        .cart-item {
+            display: flex;
+            padding: 20px;
+            border-bottom: 1px solid #e0e0e0;
+            align-items: center;
+        }
+        
+        .cart-item-image {
+            width: 100px;
+            height: 100px;
+            background-color: #f5f5f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            margin-right: 20px;
+            overflow: hidden;
+        }
+        
+        .cart-item-image img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: cover;
+        }
+        
+        .cart-item-details {
+            flex: 1;
+        }
+        
+        .cart-item-title {
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+        
+        .cart-item-price {
+            font-size: 18px;
+            font-weight: bold;
+            color: var(--red);
+        }
+        
+        .cart-item-remove {
+            background: none;
+            border: none;
+            color: var(--dark-gray);
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        .cart-summary {
+            background-color: var(--light-green);
+            padding: 20px;
+            border-radius: 8px;
+        }
+        
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        
+        /* Контакты */
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .contact-card {
+            background-color: var(--light-green);
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-green);
+        }
+        
+        .contact-card h3 {
+            margin-bottom: 15px;
+            color: var(--black);
+        }
+        
+        /* Подвал */
+        footer {
+            background-color: var(--black);
+            color: var(--white);
+            padding: 40px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-column h3 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: var(--primary-green);
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-column ul li a {
+            color: #ecf0f1;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-column ul li a:hover {
+            color: var(--primary-green);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #444;
+            color: #bdc3c7;
+            font-size: 14px;
+        }
+        
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                margin-top: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            nav ul li {
+                margin: 5px 10px;
+            }
+            
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+            
+            .product-detail {
+                grid-template-columns: 1fr;
+            }
+            
+            .product-actions {
+                flex-direction: column;
+            }
+            
+            .cart-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .cart-item-image {
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Шапка сайта -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">ОФЕ<span>ЛИЯ</span></div>
+                <nav>
+                    <ul>
+                        <li><a href="#" onclick="showPage('home')">Главная</a></li>
+                        <li><a href="#" onclick="showPage('catalog')">Каталог</a></li>
+                        <li><a href="#" onclick="showPage('cart')" class="cart-icon">
+                            Корзина <span class="cart-count" id="cartCount">0</span>
+                        </a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Основной контент -->
+    <main class="container">
+        <!-- Главная страница -->
+        <div id="home-page" class="page">
+            <h1 class="page-title">Добро пожаловать в магазин "Офелия"</h1>
+            
+            <section class="section">
+                <h2 class="section-title">Акции</h2>
+                <div class="products-grid">
+                    <!-- Акционный товар 1 -->
+                    <div class="product-card">
+                        <div class="product-image">
+                            <div class="sale-badge">-20%</div>
+                            <img src="https://via.placeholder.com/250x200" alt="Холодильник">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">Холодильник Samsung RB37</h3>
+                            <div class="product-price">54 990 ₽ <span style="text-decoration: line-through; color: var(--dark-gray); font-size: 16px; margin-left: 10px;">68 740 ₽</span></div>
+                            <ul class="product-features">
+                                <li>Объем: 367 л</li>
+                                <li>No Frost</li>
+                                <li>Энергопотребление: A+</li>
+                            </ul>
+                            <button class="btn btn-block" onclick="addToCart(1)">В корзину</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Акционный товар 2 -->
+                    <div class="product-card">
+                        <div class="product-image">
+                            <div class="sale-badge">НОВИНКА</div>
+                            <img src="https://via.placeholder.com/250x200" alt="Стиральная машина">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">Стиральная машина LG с сушкой</h3>
+                            <div class="product-price">49 990 ₽</div>
+                            <ul class="product-features">
+                                <li>Загрузка: 9 кг</li>
+                                <li>Сушка: 6 кг</li>
+                                <li>Технология Steam</li>
+                            </ul>
+                            <button class="btn btn-block" onclick="addToCart(2)">В корзину</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Акционный товар 3 -->
+                    <div class="product-card">
+                        <div class="product-image">
+                            <div class="sale-badge">РАСПРОДАЖА</div>
+                            <img src="https://via.placeholder.com/250x200" alt="Вытяжка">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">Вытяжка Bosch без воздухоотвода</h3>
+                            <div class="product-price">28 750 ₽ <span style="text-decoration: line-through; color: var(--dark-gray); font-size: 16px; margin-left: 10px;">35 900 ₽</span></div>
+                            <ul class="product-features">
+                                <li>Рециркуляционный режим</li>
+                                <li>Угольный фильтр</li>
+                                <li>Сенсорное управление</li>
+                            </ul>
+                            <button class="btn btn-block" onclick="addToCart(3)">В корзину</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="section">
+                <h2 class="section-title">Контакты</h2>
+                <div class="contact-info">
+                    <div class="contact-card">
+                        <h3>Адрес магазина</h3>
+                        <p>Москва, ул. Примерная, д. 10</p>
+                        <p>Режим работы: 9:00-21:00</p>
+                    </div>
+                    
+                    <div class="contact-card">
+                        <h3>Телефоны</h3>
+                        <p>8 (800) 555-35-35 - бесплатно по России</p>
+                        <p>8 (495) 123-45-67 - для Москвы</p>
+                    </div>
+                    
+                    <div class="contact-card">
+                        <h3>Электронная почта</h3>
+                        <p>info@ofelia.ru - общие вопросы</p>
+                        <p>order@ofelia.ru - заказы</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+        
+        <!-- Страница каталога -->
+        <div id="catalog-page" class="page" style="display: none;">
+            <h1 class="page-title">Каталог товаров</h1>
+            
+            <section class="section">
+                <h2 class="section-title">Холодильники</h2>
+                <div class="products-grid">
+                    <!-- Товар 1 -->
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="https://via.placeholder.com/250x200" alt="Холодильник">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">Холодильник Samsung RB37</h3>
+                            <div class="product-price">54 990 ₽</div>
+                            <ul class="product-features">
+                                <li>Объем: 367 л</li>
+                                <li>No Frost</li>
+                                <li>Энергопотребление: A+</li>
+                            </ul>
+                            <button class="btn btn-block" onclick="addToCart(1)">В корзину</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Товар 2 -->
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="https://via.placeholder.com/250x200" alt="Холодильник Side by Side">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">Холодильник LG Side by Side</h3>
+                            <div class="product-price">89 990 ₽</div>
+                            <ul class="product-features">
+                                <li>Объем: 635 л</li>
+                                <li>Двойная система No Frost</li>
+                                <li>Диспенсер для воды и льда</li>
+                            </ul>
+                            <button class="btn btn-block" onclick="addToCart(2)">В корзину</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Товар 3 -->
+                    <div class="product-card">
+                        <div class="product-image">
+                            <div class="sale-badge">-15%</div>
+                            <img src="https://via.placeholder.com/250x200" alt="Многодверный холодильник">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">Холодильник Bosch MultiDoor</h3>
+                            <div class="product-price">76 490 ₽</div>
+                            <ul class="product-features">
+                                <li>Объем: 569 л</li>
+                                <li>4 двери</li>
+                                <li>Технология VitaFresh</li>
+                            </ul>
+                            <button class="btn btn-block" onclick="addToCart(3)">В корзину</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="section">
+                <h2 class="section-title">Стиральные машины</h2>
+                <div class="products-grid">
+                    <!-- Товар 4 -->
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="https://via.placeholder.com/250x200" alt="Стиральная машина">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">Стиральная машина Indesit</h3>
+                            <div class="product-price">24 990 ₽</div>
+                            <ul class="product-features">
+                                <li>Загрузка: 7 кг</li>
+                                <li>Отжим: 1000 об/мин</li>
+                                <li>Энергопотребление: A++</li>
+                            </ul>
+                            <button class="btn btn-block" onclick="addToCart(4)">В корзину</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Товар 5 -->
+                    <div class="product-card">
+                        <div class="product-image">
+                            <div class="sale-badge">НОВИНКА</div>
+                            <img src="https://via.placeholder.com/250x200" alt="Стиральная машина с сушкой">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">Стиральная машина LG с сушкой</h3>
+                            <div class="product-price">49 990 ₽</div>
+                            <ul class="product-features">
+                                <li>Загрузка: 9 кг</li>
+                                <li>Сушка: 6 кг</li>
+                                <li>Технология Steam</li>
+                            </ul>
+                            <button class="btn btn-block" onclick="addToCart(5)">В корзину</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="section">
+                <h2 class="section-title">Вытяжки</h2>
+                <div class="products-grid">
+                    <!-- Товар 6 -->
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="https://via.placeholder.com/250x200" alt="Вытяжка">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">Вытяжка Kuppersbusch</h3>
+                            <div class="product-price">32 490 ₽</div>
+                            <ul class="product-features">
+                                <li>Производительность: 650 м³/ч</li>
+                                <li>3 скорости работы</li>
+                                <li>Подсветка LED</li>
+                            </ul>
+                            <button class="btn btn-block" onclick="addToCart(6)">В корзину</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Товар 7 -->
+                    <div class="product-card">
+                        <div class="product-image">
+                            <div class="sale-badge">РАСПРОДАЖА</div>
+                            <img src="https://via.placeholder.com/250x200" alt="Вытяжка без воздухоотвода">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">Вытяжка Bosch без воздухоотвода</h3>
+                            <div class="product-price">28 750 ₽</div>
+                            <ul class="product-features">
+                                <li>Рециркуляционный режим</li>
+                                <li>Угольный фильтр</li>
+                                <li>Сенсорное управление</li>
+                            </ul>
+                            <button class="btn btn-block" onclick="addToCart(7)">В корзину</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        
+        <!-- Страница корзины -->
+        <div id="cart-page" class="page" style="display: none;">
+            <h1 class="page-title">Корзина</h1>
+            
+            <div class="section">
+                <div id="cart-items" class="cart-items">
+                    <!-- Товары в корзине будут добавляться сюда -->
+                    <p id="empty-cart-message">Ваша корзина пуста</p>
+                </div>
+                
+                <div class="cart-summary">
+                    <div class="cart-total">
+                        <span>Итого:</span>
+                        <span id="cart-total">0 ₽</span>
+                    </div>
+                    <button class="btn btn-block" onclick="checkout()">Оформить заказ</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Страница товара -->
+        <div id="product-page" class="page" style="display: none;">
+            <!-- Контент страницы товара будет загружаться динамически -->
+        </div>
+    </main>
+
+    <!-- Подвал -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>О магазине</h3>
+                    <ul>
+                        <li><a href="#">О компании</a></li>
+                        <li><a href="#">Наши магазины</a></li>
+                        <li><a href="#">Вакансии</a></li>
+                        <li><a href="#">Отзывы</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Помощь покупателю</h3>
+                    <ul>
+                        <li><a href="#">Доставка и оплата</a></li>
+                        <li><a href="#">Гарантия</a></li>
+                        <li><a href="#">Сервисные центры</a></li>
+                        <li><a href="#">Возврат товара</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Контакты</h3>
+                    <ul>
+                        <li>Телефон: 8 (800) 555-35-35</li>
+                        <li>Email: info@ofelia.ru</li>
+                        <li>Адрес: Москва, ул. Примерная, д. 10</li>
+                        <li>Режим работы: 9:00-21:00</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                &copy; 2025 Магазин бытовой техники "Офелия". Все права защищены.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Данные о товарах
+        const products = {
+            1: {
+                id: 1,
+                name: "Холодильник Samsung RB37",
+                price: 54990,
+                image: "https://via.placeholder.com/250x200",
+                description: "Современный холодильник с системой No Frost и энергопотреблением класса A+. Идеально подходит для семьи из 3-4 человек.",
+                features: [
+                    "Объем: 367 л",
+                    "No Frost",
+                    "Энергопотребление: A+",
+                    "Зона свежести",
+                    "Инверторный компрессор"
+                ]
+            },
+            2: {
+                id: 2,
+                name: "Холодильник LG Side by Side",
+                price: 89990,
+                image: "https://via.placeholder.com/250x200",
+                description: "Просторный холодильник Side by Side с двойной системой No Frost и диспенсером для воды и льда.",
+                features: [
+                    "Объем: 635 л",
+                    "Двойная система No Frost",
+                    "Диспенсер для воды и льда",
+                    "Смарт-функции",
+                    "Энергопотребление: A++"
+                ]
+            },
+            3: {
+                id: 3,
+                name: "Холодильник Bosch MultiDoor",
+                price: 76490,
+                image: "https://via.placeholder.com/250x200",
+                description: "Инновационный многодверный холодильник с технологией VitaFresh для длительного сохранения свежести продуктов.",
+                features: [
+                    "Объем: 569 л",
+                    "4 двери",
+                    "Технология VitaFresh",
+                    "No Frost",
+                    "Энергопотребление: A++"
+                ]
+            },
+            4: {
+                id: 4,
+                name: "Стиральная машина Indesit",
+                price: 24990,
+                image: "https://texcomplect.ru/wa-data/public/shop/products/09/97/49709/images/108470/108470.970.jpg",
+                description: "Надежная и экономичная стиральная машина с фронтальной загрузкой и множеством программ стирки.",
+                features: [
+                    "Загрузка: 7 кг",
+                    "Отжим: 1000 об/мин",
+                    "Энергопотребление: A++",
+                    "16 программ стирки",
+                    "Защита от протечек"
+                ]
+            },
+            5: {
+                id: 5,
+                name: "Стиральная машина LG с сушкой",
+                price: 49990,
+                image: "https://vsya-tehnika24.ru/image/cache/catalog/products/Stiralnye-mashiny/Stiralnaya-mashina-s-sushkoj-LG-F2T5HG2S-800x800-product_popup.jpg",
+                description: "Стиральная машина с функцией сушки и технологией Steam для бережного ухода за одеждой.",
+                features: [
+                    "Загрузка: 9 кг",
+                    "Сушка: 6 кг",
+                    "Технология Steam",
+                    "Прямой привод",
+                    "Энергопотребление: A+++"
+                ]
+            },
+            6: {
+                id: 6,
+                name: "Вытяжка Kuppersbusch",
+                price: 32490,
+                image: "https://kuppersbusch-centre.ru/upload/iblock/7b5/hnycemh27jc19jcyy9n8q9ez2drik554/ostrovnaya_vytyazhka_kuppersbusch_di_9340_0_e.jpg",
+                description: "Мощная вытяжка для кухни с LED-подсветкой и тремя скоростями работы.",
+                features: [
+                    "Производительность: 650 м³/ч",
+                    "3 скорости работы",
+                    "Подсветка LED",
+                    "Угольный фильтр в комплекте",
+                    "Сенсорное управление"
+                ]
+            },
+            7: {
+                id: 7,
+                name: "Вытяжка Bosch без воздухоотвода",
+                price: 28750,
+                image: "https://bosch-centre.ru/upload/resize_cache/iblock/0a8/afb3zw5fffa93xv0r7opsh6ygmef8yl5/238_256_1/Bosch-DWK-065G60T_photo_1.jpg",
+                description: "Стильная вытяжка с рециркуляционным режимом работы, не требующая подключения к вентиляции.",
+                features: [
+                    "Рециркуляционный режим",
+                    "Угольный фильтр",
+                    "Сенсорное управление",
+                    "3 скорости работы",
+                    "Таймер"
+                ]
+            }
+        };
+
+        // Корзина
+        let cart = [];
+        
+        // Функция для отображения страницы
+        function showPage(pageId) {
+            // Скрыть все страницы
+            document.querySelectorAll('.page').forEach(page => {
+                page.style.display = 'none';
+            });
+            
+            // Показать выбранную страницу
+            document.getElementById(`${pageId}-page`).style.display = 'block';
+            
+            // Если открывается страница корзины, обновить ее содержимое
+            if (pageId === 'cart') {
+                updateCartDisplay();
+            }
+        }
+        
+        // Функция для добавления товара в корзину
+        function addToCart(productId) {
+            const product = products[productId];
+            
+            // Проверить, есть ли товар уже в корзине
+            const existingItem = cart.find(item => item.id === productId);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    id: productId,
+                    name: product.name,
+                    price: product.price,
+                    image: product.image,
+                    quantity: 1
+                });
+            }
+            
+            // Обновить счетчик корзины
+            updateCartCount();
+            
+            // Показать уведомление
+            alert(`Товар "${product.name}" добавлен в корзину!`);
+        }
+        
+        // Функция для обновления счетчика корзины
+        function updateCartCount() {
+            const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+            document.getElementById('cartCount').textContent = totalItems;
+        }
+        
+        // Функция для обновления отображения корзины
+        function updateCartDisplay() {
+            const cartItemsContainer = document.getElementById('cart-items');
+            const emptyCartMessage = document.getElementById('empty-cart-message');
+            const cartTotal = document.getElementById('cart-total');
+            
+            // Очистить контейнер
+            cartItemsContainer.innerHTML = '';
+            
+            if (cart.length === 0) {
+                // Показать сообщение о пустой корзине
+                emptyCartMessage.style.display = 'block';
+                cartTotal.textContent = '0 ₽';
+                return;
+            }
+            
+            // Скрыть сообщение о пустой корзине
+            emptyCartMessage.style.display = 'none';
+            
+            // Добавить товары в корзину
+            let total = 0;
+            
+            cart.forEach(item => {
+                const itemTotal = item.price * item.quantity;
+                total += itemTotal;
+                
+                const cartItemElement = document.createElement('div');
+                cartItemElement.className = 'cart-item';
+                cartItemElement.innerHTML = `
+                    <div class="cart-item-image">
+                        <img src="${item.image}" alt="${item.name}">
+                    </div>
+                    <div class="cart-item-details">
+                        <h3 class="cart-item-title">${item.name}</h3>
+                        <div class="cart-item-price">${item.price.toLocaleString()} ₽ x ${item.quantity} = ${itemTotal.toLocaleString()} ₽</div>
+                    </div>
+                    <button class="cart-item-remove" onclick="removeFromCart(${item.id})">✕</button>
+                `;
+                
+                cartItemsContainer.appendChild(cartItemElement);
+            });
+            
+            // Обновить общую сумму
+            cartTotal.textContent = `${total.toLocaleString()} ₽`;
+        }
+        
+        // Функция для удаления товара из корзины
+        function removeFromCart(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            updateCartCount();
+            updateCartDisplay();
+        }
+        
+        // Функция для оформления заказа
+        function checkout() {
+            if (cart.length === 0) {
+                alert('Ваша корзина пуста!');
+                return;
+            }
+            
+            alert('Заказ успешно оформлен! Спасибо за покупку!');
+            cart = [];
+            updateCartCount();
+            updateCartDisplay();
+            showPage('home');
+        }
+        
+        // Инициализация при загрузке страницы
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCartCount();
+            showPage('home');
+        });
+    </script>
+</body>
+</html>
